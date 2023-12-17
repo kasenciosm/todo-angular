@@ -2,7 +2,7 @@
     <h1 class="title">TODO APP</h1>
     <div class="new-todo">
         <input type="text" (keydown.enter)="addTodo()" placeholder="Comprar pan, lavar la ropa..." [formControl]="newTodo">
-        <button (click)="addTodo()">+</button>
+        <button (click)="addTodo()" [disabled]="newTodo.invalid || newTodo.pristine" class="{{ newTodo.invalid || newTodo.pristine ? 'opacity-50 cursor-not-allowed' : '' }}">+</button>
     </div>
     <div *ngIf="newTodo.invalid && (newTodo.dirty || newTodo.touched)">
         <div *ngIf="newTodo.hasError('minlength')" class="text-xs text-red-700 text-center">
