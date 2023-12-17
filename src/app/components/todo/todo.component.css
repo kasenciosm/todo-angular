@@ -15,15 +15,15 @@
 }
 
 .new-todo button {
-    @apply absolute right-0 w-10 bg-background-400 text-lg font-black h-full px-2;
+    @apply absolute right-0 w-8 bg-background-400 text-lg font-black h-full px-2;
 }
 
 .filters {
-    @apply flex justify-end gap-2 my-2;
+    @apply flex justify-end gap-2 my-2 mb-4;
 }
 
 .filters button {
-    @apply px-2 rounded-lg bg-background-300;
+    @apply px-2 rounded-lg bg-background-300 text-black font-semibold;
 }
 
 .filters button.active {
@@ -39,7 +39,7 @@
 }
 
 .todolist li.todo label {
-    @apply flex-auto
+    @apply flex-1
 }
 
 .todolist li.todo:hover button {
