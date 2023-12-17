@@ -4,6 +4,11 @@
         <input type="text" (keydown.enter)="addTodo()" placeholder="Comprar pan, lavar la ropa..." [formControl]="newTodo">
         <button (click)="addTodo()">+</button>
     </div>
+    <div *ngIf="newTodo.invalid && (newTodo.dirty || newTodo.touched)">
+        <div *ngIf="newTodo.hasError('minlength')" class="text-xs text-red-700 text-center">
+          El texto debe tener al menos 3 caracteres.
+        </div>
+      </div>
    
     <div class="filters">
         <button (click)="changeFilter('all')"[class.active]="filter() === 'all'">Todos</button>
