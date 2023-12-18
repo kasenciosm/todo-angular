@@ -57,3 +57,7 @@
 .todolist li.todo-editing input[type="text"]{
     @apply w-full bg-background-400 rounded-lg px-2 outline-none;
 }
+
+.modal{
+    @apply fixed top-0 left-0 w-full flex items-center justify-center rounded-lg bg-opacity-75 z-50
+}

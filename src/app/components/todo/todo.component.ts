@@ -11,6 +11,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './todo.component.css'
 })
 export class TodoComponent implements OnInit{
+    showErrorMessage: boolean = false;
+    showNotification: boolean = false;
+    showConfirmation: boolean = false;
+    todoToDeletedId: number|null = null
  todoList = signal<TodoModel[]>([]);
 
  filter = signal<filterType>('all');
@@ -41,6 +45,7 @@ export class TodoComponent implements OnInit{
     localStorage.setItem('todos', JSON.stringify(this.todoList()))
   });
  }
+
 
  ngOnInit(): void {
   const storage = localStorage.getItem('todos');
@@ -75,10 +80,22 @@ export class TodoComponent implements OnInit{
   }))
  }
 
- removeTodo(todoId: number) {
-  this.todoList.update((prevTodos) => prevTodos.filter((todo) => {
-    return todo.id !== todoId;
-  }))
+ confirmDelete(todoId:number) {
+  this.todoToDeletedId = todoId;
+  this.showConfirmation = true;
+ }
+
+ removeTodo() {
+  if(this.todoToDeletedId !== null) {
+    this.todoList.update((prevTodos) => prevTodos.filter((todo) => {
+      return todo.id !== this.todoToDeletedId;
+    }))
+  }
+  this.showConfirmation = false;
+ }
+
+ cancelDelete(){
+  this.showConfirmation = false;
  }
 
  updateTodo(todoId: number) {
@@ -91,9 +108,20 @@ export class TodoComponent implements OnInit{
 
  saveTitleTodo(todoId: number, event: Event) {
   const title = (event.target as HTMLInputElement).value;
-  return this.todoList.update((prevTodos) => prevTodos.map((todo) => {
-    return todo.id === todoId ? {...todo, title:title, editing:false}
-    : todo
-  }))
+
+  if (title !== '' && title !== null && title.length >= 3) {
+    this.todoList.update((prevTodos) => prevTodos.map((todo) => {
+      return todo.id === todoId ? {...todo, title:title, editing:false}
+      : todo
+    }));
+    this.showErrorMessage = false;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 2000)
+  } else {
+    this.showErrorMessage = true;
+  }
  }
+
 }
