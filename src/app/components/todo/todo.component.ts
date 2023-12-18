@@ -124,4 +124,20 @@ export class TodoComponent implements OnInit{
   }
  }
 
+ saveEditedTodo(todoId: number, title:string){
+  if (title !== '' && title !== null && title.length >= 3) {
+    this.todoList.update((prevTodos) => prevTodos.map((todo) => {
+      return todo.id === todoId ? {...todo, title:title, editing:false}
+      : todo
+    }));
+    this.showErrorMessage = false;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 2000)
+  } else {
+    this.showErrorMessage = true;
+  }
+ }
+
 }

@@ -58,6 +58,10 @@
     @apply w-full bg-background-400 rounded-lg px-2 outline-none;
 }
 
+.todolist li.todo-editing button{
+    @apply text-center rounded-lg text-slate-900 items-center text-xl;
+}
+
 .modal{
     @apply fixed top-0 left-0 w-full flex items-center justify-center rounded-lg bg-opacity-75 z-50
 }

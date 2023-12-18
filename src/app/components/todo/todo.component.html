@@ -21,7 +21,8 @@
         @for (todo of todoListFiltered(); track todo.id){
             @if (todo.editing) {
                 <li class="todo-editing">
-                    <input type="text" placeholder="editar tarea" [value]="todo.title" (keydown.enter)="saveTitleTodo(todo.id, $event)">
+                    <input type="text" placeholder="editar tarea" [value]="todo.title" #editedTodo (keydown.enter)="saveTitleTodo(todo.id, $event)">
+                    <button (click)="saveEditedTodo(todo.id, editedTodo.value)"><i class="fa-solid fa-square-check"></i></button>
                 </li>
                 <div *ngIf="showErrorMessage" class="text-red-600 text-xs text-center">No se puede agregar una tarea vacia o que tenga menos de 3 caracteres</div>
             } @else {
